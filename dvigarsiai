@@ -1,0 +1,32 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int kiek(char s, char u);
+
+int main()
+{
+    kiek('a','u');
+    return 1;
+}
+int kiek(char s, char u)
+{
+    int k = 0;
+    char p, a, c;
+    ifstream D("duota.txt");
+    ofstream R("rezultatai.txt");
+    while(!D.eof())
+    {
+        D.get(p);
+        if(p == s)
+        {
+            D.get(a);
+            if(a == u) k++;
+        }
+    }
+    R << k;
+    D.close();
+    R.close();
+    return k;
+}
