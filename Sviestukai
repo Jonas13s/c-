@@ -1,0 +1,63 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+void Skaityti(int &n, int k[], int kp[], int ku[]);
+int Kiek(int n, int k[], int kp[], int ku[]);
+void Irasyti(int n, int k[], int kp[] , int ku[], int ka);
+
+int main()
+{
+    int n, k[25], kp[25] = {0}, ku[25] = {0};
+    int ka;
+    Skaityti(n, k, kp, ku);
+    ka = Kiek(n, k, kp, ku);
+    Irasyti(n, k, kp, ku, ka);
+    return 0;
+}
+
+void Skaityti(int &n, int k[], int kp[], int ku[])
+{
+    int p;
+    ifstream D("sviestukai.txt");
+    D >> n;
+    for(int i = 0; i < n; i++)
+    {
+        D >> k[i];
+        for(int j = 0; j < k[i]; j++)
+        {
+            D >> p;
+            kp[i] = kp[i] + p;
+            D >> p;
+            ku[i] = ku[i] + p;
+        }
+    }
+    D.close();
+}
+
+int Kiek(int n, int k[], int kp[], int ku[])
+{
+    int u = 0;
+    for(int i = 0; i < n; i++)
+            if(kp[i] > ku[i]) u++;
+    return u;
+}
+
+void Irasyti(int n, int k[], int kp[] , int ku[], int ka)
+{
+    int u[2] = {0};
+    ofstream R("sviestukairez.txt");
+    for(int i = 0; i < n; i++)
+    {
+        R << i+1 << " " << kp[i] << " " << ku[i] << endl;
+        u[0] = u[0] + kp[i];
+        u[1] = u[1] + ku[i];
+    }
+    R << u[0] << " " << u[1] << endl;
+    R << ka << endl;
+    if(u[0] > u[1]) R << "TAIP";
+    else
+        R << "NE";
+    R.close();
+}
