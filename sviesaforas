@@ -1,0 +1,49 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+
+int main()
+{
+    int n, R = 0, Z = 0, q, k = 0;
+    ifstream D("Duomenys.txt");
+    D >> n;
+    D.close();
+    q = 60;
+    for(int i = 0; i < n; i++)
+    {
+        if(k == 0 & q > n)
+        {
+        q = q - 3;
+        Z = 1;
+        R = 0;
+        k = 1;
+        }
+        if(k == 1 & q > n)
+        {
+            q = q - 2;
+            R = 1;
+            Z = 0;
+            k = 0;
+        }
+        if(k == 0 & q != n)
+        {
+            R = 2;
+            Z = 1;
+        }
+        if(k == 1 & q != n)
+        {
+            R = 1;
+            Z = 2;
+        }
+    }
+    ofstream Re("Rezultatai.txt");
+    if(R == 0 & Z == 1) Re << "Dega žalia šviesa";
+    if(R == 1 & Z == 0) Re << "Dega raudona šviesa";
+    if(R ==1 & Z == 2) Re << "Dega žalia šviesa, tuoj užsidegs raudona";
+    if(R == 2 & Z == 1) Re << "Dega raudona šviesa, tuoj užsidegs žalia";
+    Re.close();
+    return 0;
+}
+
+
